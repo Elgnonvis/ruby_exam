@@ -1,44 +1,46 @@
 #La logique qui permet au joueur d'entréer des vakeurs entre 0 et 2
 class Player
-  def hand
-      # Affichez une phrase qui permet au joueur de sélectionner une main pierre-papier-ciseaux.
-      puts "Veuillez saisir un nombre entre 0 à 2"
-      puts "0: Goo, 1: Choki, 2: Par"
+    def hand
+        #Définition d'un tableau des choix pour le jeu de pierre-papier-ciseaux
+        possible_choice = ["Veuillez saisir les chiffres 0 à 2", "0: Goo, 1: Choki, 2: Par"]
+        
+        puts possible_choice #Affichez une phrase qui permet au joueur de sélectionner une main pierre-papier-ciseaux.
 
-      #Affectez la valeur d'entrée du joueur à la variable "input_hand".
-      #Astuce : Renseignez-vous sur la méthode gets.
-  
-      input_hand = gets.chomp
+        #Affectez la valeur d'entrée du joueur à la variable "input_hand".
+        #Astuce : Renseignez-vous sur la méthode gets.
+    
+        input_hand = gets.chomp
 
-      # Si "input_hand" est soit "0, 1, 2", le processus itératif se termine, et s'il ne l'est pas (y compris les alphabets), le processus itératif continue.
-  
-      while true
-          # if "input_hand" est l'un des "0, 1, 2"
-          # Astuce : Renseignez-vous sur la méthode include?.
+        # Si "input_hand" est soit "0, 1, 2", le processus itératif se termine, et s'il ne l'est pas (y compris les alphabets), le processus itératif continue.
+    
+        while true
+            # if "input_hand" est l'un des "0, 1, 2"
+            # Astuce : Renseignez-vous sur la méthode include?.
 
-          variable_test = ["0", "1", "2"].include?(input_hand)#est-ce que la saisie de l'utilisateur se trouve dans variable_test?
-          # "input_hand" est renvoyé tel quel.
-          # Astuce : utilisez « return » si vous souhaitez renvoyer une valeur de retour et mettre fin au processus itératif.
+            variable_test = ["0", "1", "2"].include?(input_hand)#est-ce que la saisie de l'utilisateur se trouve dans variable_test?
+            # "input_hand" est renvoyé tel quel.
+            # Astuce : utilisez « return » si vous souhaitez renvoyer une valeur de retour et mettre fin au processus itératif.
 
-          if variable_test
-              return input_hand
-              # Affichez une phrase qui demande au joueur d'entrer "0-2".
-              # puts "Veuillez saisir un nombre de 0 à 2."
-              # puts "0: Goo, 1: Choki, 2: Par"
-              # Affectez la valeur d'entrée du joueur à la variable "input_hand".
-          else
-          puts "Veuillez saisir un nombre de 0 à 2."
-          puts "0: Goo, 1: Choki, 2: Par"
-          end
-  end
-      end
+            if variable_test
+                return input_hand.to_i
+                # Affichez une phrase qui demande au joueur d'entrer "0-2".
+                # puts "Veuillez saisir un nombre de 0 à 2."
+                # puts "0: Goo, 1: Choki, 2: Par"
+                # Affectez la valeur d'entrée du joueur à la variable "input_hand".
+            else
+            puts possible_choice[0] #montrer au joueur les choix possibles pour le jeu
+            input_hand = gets.chomp #recuperation de la nouevlle saisie
+
+            end
+        end
+    end
 end
 
 #La logique pour que l'autre partie (l'adversaire) génère aléatoirement la valeur de 0 à 2
 class Enemy
   def hand
       # Obtenez au hasard les valeurs de goo, choki et par.
-      return rand(0..2)
+      return rand(0..2).to_i
   end
 end
 
@@ -67,8 +69,8 @@ class Janken
 
           return false
 
-      else #lorsque je perds et que l'ennemi gagne
-          puts "Vous perdez."#Sortie "Vous êtes en train de perdre".
+      else
+          puts "Vous avez perdu."#Sortie "Vous êtes en train de perdre".
           return false #Renvoie "false" pour terminer pierre-papier-ciseaux
       end
   end
@@ -87,12 +89,12 @@ class GameStart
 
       while next_game do
            # J'utilise des pierre-papier-ciseaux avec "janken.pon (player.hand, ennemi.hand)".
-      #Je lance pierre-papier-ciseaux avec "janken.pon (player.hand, ennemi.hand)".
+           #Je lance pierre-papier-ciseaux avec "janken.pon (player.hand, ennemi.hand)".
 
           next_game = janken.pon(player.hand, enemy.hand)
       end
   end
 end
 
-#Appelle de la méthodejankenpon avec le nom de la classe
+#Appelle de la méthode jankenpon avec le nom de la classe
 GameStart.jankenpon
